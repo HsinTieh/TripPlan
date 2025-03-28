@@ -85,3 +85,56 @@ body {
     background-color: #e8f4ff;
     border-radius: 4px;
   }
+
+  /* 添加訊息框樣式 */
+.info-window {
+  padding: 10px;
+  max-width: 200px;
+}
+
+.info-window h3 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+}
+
+.info-window p {
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.info-window button.add-to-itinerary {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.info-window button.add-to-itinerary:hover {
+  background-color: #3367d6;
+}
+
+/* 添加通知樣式 */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; bottom: 0; }
+  10% { opacity: 1; bottom: 20px; }
+  90% { opacity: 1; bottom: 20px; }
+  100% { opacity: 0; bottom: 0; }
+}

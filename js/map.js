@@ -82,6 +82,69 @@ function calculateRoute(origin, destination) {
     }
   });
 }
+// 在 map.js 中添加以下函數
+function showPlaceOnMap(place) {
+  // 清除舊標記
+  markers.forEach(marker => marker.setMap(null));
+  markers = [];
+  
+  // 創建新標記
+  const marker = new google.maps.Marker({
+    map: map,
+    title: place.name,
+    position: place.geometry.location
+  });
+  
+  markers.push(marker);
+  
+  // 跳轉到景點位置
+  if (place.geometry.viewport) {
+    map.fitBounds(place.geometry.viewport);
+  } else {
+    map.setCenter(place.geometry.location);
+    map.setZoom(15); // 適當的縮放級別
+  }
+  
+  // 創建訊息框
+  const infoWindow = new google.maps.InfoWindow({
+    content: `
+      <div class="info-window">
+        <h3>${place.name}</h3>
+        <p>${place.formatted_address || '無地址資訊'}</p>
+        <button class="add-to-itinerary">加入行程規劃</button>
+      </div>
+    `,
+    position: place.geometry.location
+  });
+  
+  infoWindow.open(map, marker);
+  
+  // 為訊息框中的按鈕添加事件監聽
+  google.maps.event.addListener(infoWindow, 'domready', () => {
+    document.querySelector('.add-to-itinerary').addEventListener('click', () => {
+      addPlaceToItinerary(place);
+      infoWindow.close();
+    });
+  });
+}
+
+// 修改搜索按鈕的事件處理
+document.getElementById('search-btn').addEventListener('click', () => {
+  const input = document.getElementById('search-input');
+  if (input.value.trim() === '') return;
+  
+  const searchBox = new google.maps.places.SearchBox(input);
+  searchBox.setBounds(map.getBounds());
+  
+  searchBox.addListener('places_changed', () => {
+    const places = searchBox.getPlaces();
+    if (places.length === 0) return;
+    
+    // 只顯示第一個搜索結果
+    showPlaceOnMap(places[0]);
+  });
+});
+
 
 // 初始化地圖
 window.initMap = initMap;

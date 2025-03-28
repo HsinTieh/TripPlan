@@ -122,3 +122,40 @@ function calculateRouteForAll() {
     }
   });
 }
+
+// 確保這個函數可以被 map.js 調用
+window.addPlaceToItinerary = function(place) {
+  // 檢查是否已存在
+  if (places.some(p => p.place_id === place.place_id)) {
+    alert('此景點已在行程中！');
+    return;
+  }
+  
+  const placeData = {
+    id: Date.now().toString(),
+    place_id: place.place_id,
+    name: place.name,
+    location: place.geometry.location,
+    address: place.formatted_address
+  };
+  
+  places.push(placeData);
+  renderItinerary();
+  
+  // 如果有多於一個景點，計算路線
+  if (places.length > 1) {
+    const origin = places[places.length - 2].location;
+    const destination = places[places.length - 1].location;
+    calculateRoute(origin, destination);
+  }
+  
+  // 顯示成功添加的提示
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.textContent = `已添加 ${place.name} 到行程`;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.remove();
+  }, 2000);
+};
