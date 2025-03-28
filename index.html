@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旅遊規劃工具</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- 載入Font Awesome圖標 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- 載入Google Maps API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtbvAm1eti49ROeU6f-UL9wAKkJTo4Bfc&libraries=places"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>我的旅遊規劃</h1>
+    </header>
+    
+    <div class="main-content">
+      <div class="map-container">
+        <div id="map"></div>
+      </div>
+      
+      <div class="control-panel">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="搜尋景點...">
+          <button id="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        
+        <div class="itinerary-list" id="itinerary-list">
+          <h3>我的行程</h3>
+          <div id="places-container">
+            <!-- 景點將在這裡動態添加 -->
+          </div>
+        </div>
+        
+        <div class="route-info" id="route-info">
+          <h3>路線資訊</h3>
+          <div id="duration-display"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 載入JavaScript文件 -->
+  <script src="js/map.js"></script>
+  <script src="js/itinerary.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
